@@ -164,6 +164,8 @@ sub TicketsInfo {
             $min_start     = $start;
         }
 
+        my $milestone = ( $start && $end && $start eq $end ) ? 1 : 0;
+
         my $depends = $Ticket->DependsOn;
         my @depends;
         if ( $depends->Count ) {
@@ -201,7 +203,7 @@ sub TicketsInfo {
                   . '/Ticket/Display.html?id='
                   . $Ticket->id
             ),
-            milestone => 0,
+            milestone => $milestone,
             owner =>
               ( $Ticket->OwnerObj->Name || $Ticket->OwnerObj->EmailAddress ),
             progress    => $progress,
